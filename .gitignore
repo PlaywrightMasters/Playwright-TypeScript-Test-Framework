@@ -46,3 +46,19 @@ next-env.d.ts
 .eslintcache
 .turbo
 .swc
+
+# Playwright artifacts and private configuration
+.env.*
+!.env.example
+playwright-report/
+blob-report/
+all-blob-reports/
+allure-results/
+allure-report/
+html-report/
+test-results/
+logs/
+Downloads/
+reports/
+har/
+.scannerwork/
