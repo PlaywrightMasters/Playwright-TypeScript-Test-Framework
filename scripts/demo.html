@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Local examples for the Playwright Masters test automation framework.">
+<title>Playwright Masters ? Test playground</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font:16px Arial,sans-serif;background:#f3f5f8;color:#172c43}header,main,footer{max-width:800px;margin:auto;padding:24px}header{font-weight:bold;letter-spacing:2px;font-size:13px}main{background:#fff;border:1px solid #bec9d5;border-radius:12px;margin:0 auto 24px}h1{font-size:32px;margin-top:0}h2{font-size:20px}p{line-height:1.5}label{display:block;margin:16px 0 8px}input,select,button,a{font:inherit}input:not([type=checkbox]),select{display:block;width:100%;padding:12px;border:1px solid #64758a;border-radius:5px}button,.download{display:inline-block;background:#174e7b;color:white;padding:12px 16px;border:0;border-radius:5px;margin:12px 4px 0 0;min-height:44px;cursor:pointer}a{color:#174e7b}section{border-top:1px solid #d6dde6;margin-top:24px;padding-top:12px}input[type=checkbox]{width:20px;height:20px;vertical-align:middle}#result,#network-result,#prompt-result,#file-result{min-height:24px}footer{font-size:13px;text-align:center}:focus-visible{outline:3px solid #b35900;outline-offset:3px}.skip{position:absolute;top:-100px;background:#fff;padding:12px}.skip:focus{top:0}@media(max-width:600px){main{margin:0 8px 16px;padding:20px}h1{font-size:27px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to examples</a>
+<header>PLAYWRIGHT MASTERS</header>
+<main id="main">
+<h1>Test playground</h1>
+<p>A local target for browser, API, mobile, accessibility, and visual examples.</p>
+<form id="profile">
+<label for="name">Full name</label><input id="name" placeholder="Full Name" required autocomplete="name">
+<label for="colour">Favourite colour</label><select id="colour"><option>Blue</option><option>Green</option><option>Aqua</option></select>
+<label><input id="terms" type="checkbox"> Accept terms</label>
+<button type="submit">Submit</button>
+<p id="result" role="status"></p>
+</form>
+<section aria-labelledby="files-heading"><h2 id="files-heading">Files and dialogs</h2>
+<a class="download" href="/download" download>Download sample</a>
+<button id="prompt-button" type="button">Open prompt</button>
+<p id="prompt-result" role="status"></p>
+<label for="upload">Upload a text file</label><input id="upload" type="file" accept=".txt,text/plain">
+<p id="file-result" role="status"></p>
+</section>
+<section aria-labelledby="api-heading"><h2 id="api-heading">Network example</h2>
+<button id="load-user" type="button">Load user</button><p id="network-result" role="status"></p>
+</section>
+</main>
+<footer>Test data only. No account or external service required.</footer>
+<script>
+document.querySelector('#profile').addEventListener('submit',event=>{event.preventDefault();document.querySelector('#result').textContent='Name:'+document.querySelector('#name').value.trim();});
+document.querySelector('#prompt-button').addEventListener('click',()=>{const value=prompt('Enter a message');document.querySelector('#prompt-result').textContent=value===null?'Prompt cancelled':'You entered '+value;});
+document.querySelector('#upload').addEventListener('change',event=>{document.querySelector('#file-result').textContent=event.target.files[0]?.name??'';});
+document.querySelector('#load-user').addEventListener('click',async()=>{try{const response=await fetch('/api/users?per_page=1');if(!response.ok)throw new Error('Request failed');const data=await response.json();document.querySelector('#network-result').textContent=data.data[0].first_name;}catch{document.querySelector('#network-result').textContent='Unable to load user. Try again.';}});
+</script>
+</body>
+</html>

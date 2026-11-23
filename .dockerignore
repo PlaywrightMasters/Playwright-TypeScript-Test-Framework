@@ -1,0 +1,17 @@
+.git
+.env
+.env.*
+!.env.example
+node_modules
+test-results
+playwright-report
+blob-report
+all-blob-reports
+allure-results
+allure-report
+html-report
+logs
+Downloads
+reports
+har
+.scannerwork
